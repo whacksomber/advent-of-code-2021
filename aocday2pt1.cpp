@@ -1,0 +1,31 @@
+#include <iostream>
+#include <fstream>
+#include <sstream>
+using namespace std;
+
+int main() {
+    //declare ifstream variable
+    ifstream inFile;
+    inFile.open("day2input.txt");
+
+    //declare depth and horizontal variables, indicating position
+    int depth = 0, horizontal = 0;
+
+    string position;
+    string changeStr;
+    int change;
+
+    //loop through the file line by line
+    while (inFile >> position >> changeStr) {
+        stringstream ss; ss << changeStr; ss >> change;
+
+        if (position=="forward") {horizontal += change;}
+        if (position=="down") {depth += change;}
+        if (position=="up") {depth = depth - change;}
+    }
+
+    //multiply depth and horizontal position
+    int result = depth * horizontal;
+
+    cout << "The result is " << result << "!" << endl;
+}
