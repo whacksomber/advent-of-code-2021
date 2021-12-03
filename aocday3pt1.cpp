@@ -5,6 +5,22 @@
 #include <cmath>
 using namespace std;
 
+int binaryToDec(string n) {
+    int decimal = 0;
+
+    //convert binary to decimal
+    for (int a = 0; a <= n.length()-1 ; a++) {
+        int bit = 0;
+        if (n[a] == '0') {bit = 0;}
+        if (n[a] == '1') {bit = 1;}
+
+        int pos = (n.length()-1) - a;
+
+        decimal += bit * pow(2,pos);
+    }
+    return decimal;
+}
+
 int main() {
     //declare ifstream variable and open input file
     ifstream inFile;
@@ -16,7 +32,6 @@ int main() {
     char currentBit;
 
     vector<string> nums;
-
 
     int num0; //represents the number of 0s in the current bit position
     int num1; //represents the number of 1s in the current bit position
@@ -47,18 +62,8 @@ int main() {
         if (num1 > num0) {gammaStr += '1';}
     }
 
-    int gammaDec = 0;
-
     //convert gamma binary to decimal
-    for (int a = 0; a <= gammaStr.length()-1 ; a++) {
-        int bit = 0;
-        if (gammaStr[a] == '0') {bit = 0;}
-        if (gammaStr[a] == '1') {bit = 1;}
-
-        int pos = (gammaStr.length()-1) - a;
-
-        gammaDec += bit * pow(2,pos);
-    }
+    int gamma = binaryToDec(gammaStr);
 
 
     //find epsilon rate
@@ -80,21 +85,11 @@ int main() {
         if (num1 < num0) {epString += '1';}
     }
 
-    int epDec = 0;
-
-    //convert gamma binary to decimal
-    for (int a = 0; a <= epString.length()-1 ; a++) {
-        int bit = 0;
-        if (epString[a] == '0') {bit = 0;}
-        if (epString[a] == '1') {bit = 1;}
-
-        int pos2 = (epString.length()-1) - a;
-
-        epDec += bit * pow(2,pos2);
-    }
+    //convert epsilon binary to decimal
+    int ep = binaryToDec(epString);
     
     //calculate consumption rate
-    int con = epDec * gammaDec;
+    int con = ep * gamma;
 
     cout << con << endl;
 }
