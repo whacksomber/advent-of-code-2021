@@ -101,20 +101,20 @@ int main() {
         allBoards.push_back(tempBoard); //add to vector
     }
 
-    vector<board>winningBoards;
+    vector<board>winningBoards; //vector to store winning boards
 
     //read one number at a time, then search for it in the bingo cards
     for (int i = 0; i < calledNums.size(); i++) {
         for (int a=0; a < allBoards.size(); a++) {
-            bool skip = false;
-            if (allBoards[a].won()) { skip = true; }
+            bool skip = false; //declare bool skip variable to determine whether current board should be skipped
+            if (allBoards[a].won()) { skip = true; } //check if board has already won, if so, skip
 
+            //if board has not already won, check for called number
             if (!skip) {
-                //search for called number on board
-                allBoards[a].searchBoard(calledNums[i]);
-                if (allBoards[a].won()) {
-                    allBoards[a].setScore(calledNums[i]);
-                    winningBoards.push_back(allBoards[a]);
+                allBoards[a].searchBoard(calledNums[i]); //search for called number on board
+                if (allBoards[a].won()) { //check if board has won
+                    allBoards[a].setScore(calledNums[i]); //set score of winning board
+                    winningBoards.push_back(allBoards[a]); //add winning board to vector
                 }
             }
         }
