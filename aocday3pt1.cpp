@@ -5,6 +5,7 @@
 #include <cmath>
 using namespace std;
 
+//function to convert binary to decimal
 int binaryToDec(string n) {
     int decimal = 0;
 
@@ -24,7 +25,7 @@ int binaryToDec(string n) {
 int main() {
     //declare ifstream variable and open input file
     ifstream inFile;
-    inFile.open("input.txt");
+    inFile.open("day3input.txt");
 
     //12 bits in each binary number
 
