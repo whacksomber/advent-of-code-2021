@@ -22,40 +22,30 @@ int binaryToDec(string n) {
     return decimal;
 }
 
-string narrowDown (vector<string>vec, int bitNum, char rating) {
-    if (bitNum == 0 || vec.size() == 1) { return vec[0]; } //base case
+int narrowDown (vector<string>vec, int bitNum, char rating) {
+    if (bitNum == 0 || vec.size() == 1) { return binaryToDec(vec[0]); } //base case
 
-    //get the number of bits to search
-    int bitLength = vec[0].length();
+    int bitLength = vec[0].length(); //get the number of bits to search
 
     bool keep0 = false, keep1 = false;
+    int num0 = 0, num1 = 0;
+    int n = bitLength - bitNum; //get the current index to search
 
-    int num0 = 0;
-    int num1 = 0;
+    vector<string>filteredVec; //values that match the criteria are stored here
 
-    vector<string>filteredVec;
-
-    //search the current bit.
-
-    //get the current index to search
-    int n = bitLength - bitNum;
-
-    //loop through vector and get nth bit of each item
-    for (int i = 0; i < vec.size(); i++) {
+    for (int i = 0; i < vec.size(); i++) { //loop through vector and get nth bit of each item
         char countBit = vec[i][n];
 
         if (countBit == '0') {num0 += 1;}
         if (countBit == '1') {num1 += 1;}
     }
 
-    //set bool variables
+    //set bool variables depending on rating type
     if (num0 > num1) { //more 0s than 1s
         if (rating == 'o') {keep0 = true;}
         if (rating == 'c') {keep1 = true;}
-        //depending on rating type, determine whether to keep
     }
     if (num1 > num0) { //more 1s than 0s
-        //depending on rating type, determine whether to keep
         if (rating == 'o') {keep1 = true;}
         if (rating == 'c') {keep0 = true;}
     }
@@ -64,20 +54,19 @@ string narrowDown (vector<string>vec, int bitNum, char rating) {
         if (rating == 'c') {keep0 = true;}
     }
 
-    if (keep1 == true && keep0 == false) {
+    if (keep1 && !keep0) {
         for (int i = 0; i < vec.size(); i++) {
             char bit = vec[i][n];
             if (bit == '1') { filteredVec.push_back(vec[i]); }
         }
     }
 
-    else if (keep0 == true && keep1 == false) {
+    if (keep0 && !keep1) {
         for (int i = 0; i < vec.size(); i++) {
             char bit = vec[i][n];
             if (bit == '0') { filteredVec.push_back(vec[i]); }
         }
     }
-    //remove vector elements that don't match the criteria
 
     return narrowDown(filteredVec, bitNum-1, rating);
 }
@@ -85,33 +74,20 @@ string narrowDown (vector<string>vec, int bitNum, char rating) {
 int main() {
     ifstream inFile ("day3input.txt"); //declare ifstream variable and open input file
 
-    //vectors to store binary values from input file
-    vector<string> oxygenNums;
-    vector<string> nums;
-    vector<string>co2Nums;
+    vector<string> nums; //vector to store binary values from input file
 
-    //read each line of input file into vector
-    while (!inFile.eof()) {
-        string binaryNum;
-
-        getline(inFile, binaryNum); //retrieve one line of file
+    while (!inFile.eof()) { //read each line of input file into vector
+        string binaryNum; //temporary variable to store line from file
+        getline(inFile, binaryNum); //retrieve one line of file, store in binaryNum
 
         nums.push_back (binaryNum);
-        //oxygenNums.push_back(binaryNum);
-        co2Nums.push_back(binaryNum);
     }
 
     int bitLength = nums[0].length();
 
-    //find oxygen generator rating
-    string oxygenBin = narrowDown (nums, bitLength, 'o'); //narrow down vector
-    int oxygenDec = binaryToDec(oxygenBin); //convert to decimal
+    int oxygenDec = narrowDown (nums, bitLength, 'o'); //find oxygen generator rating
 
-    //find co2 scrubber rating
-    string co2Bin = narrowDown (nums, bitLength, 'c'); //narrow down vector
-    int co2Dec = binaryToDec(co2Bin); //convert to decimal
+    int co2Dec = narrowDown (nums, bitLength, 'c'); //find co2 scrubber rating
 
-    int ls = co2Dec * oxygenDec;
-
-    cout << ls << endl;
+    cout << "Solution: " << co2Dec * oxygenDec << endl;
 }
