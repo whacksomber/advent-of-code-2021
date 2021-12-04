@@ -35,15 +35,6 @@ class board {
             for (int y=0; y < 5; y++) { markedCells[x][y] = false; }
         }
     }
-    void print () {
-        for (int x=0; x < 5; x++) {
-            for (int y=0; y < 5; y++) {
-                if (markedCells[x][y] == true) {cout << "X ";}
-                else { cout << boardArr[x][y] << " "; }
-            }
-            cout << endl;
-        }
-    }
     void searchBoard (int q) {
         //search board for number q
         for (int x=0; x < 5; x++) {
