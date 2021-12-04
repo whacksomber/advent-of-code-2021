@@ -109,7 +109,7 @@ int main() {
             //everytime a search is conducted, check for wins.
             if (allBoards[a].won()) {
                 winningBoard = allBoards[a];
-                v = true;
+                v = true; //set 'v' flag to true, signifying a victory and thus causing the loop to end
                 s = winningBoard.score(calledNums[i]); //compute winning score
             }
         }
