@@ -73,7 +73,6 @@ int narrowDown (vector<string>vec, int bitNum, char rating) {
 
 int main() {
     ifstream inFile ("day3input.txt"); //declare ifstream variable and open input file
-
     vector<string> nums; //vector to store binary values from input file
 
     while (!inFile.eof()) { //read each line of input file into vector
@@ -83,11 +82,8 @@ int main() {
         nums.push_back (binaryNum);
     }
 
-    int bitLength = nums[0].length();
-
-    int oxygenDec = narrowDown (nums, bitLength, 'o'); //find oxygen generator rating
-
-    int co2Dec = narrowDown (nums, bitLength, 'c'); //find co2 scrubber rating
+    int oxygenDec = narrowDown (nums, nums[0].length(), 'o'); //find oxygen generator rating
+    int co2Dec = narrowDown (nums, nums[0].length(), 'c'); //find co2 scrubber rating
 
     cout << "Solution: " << co2Dec * oxygenDec << endl;
 }
