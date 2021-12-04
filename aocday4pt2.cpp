@@ -23,55 +23,63 @@ class board {
     int score;
 
     public:
-    void setRow (int row, string rowString) { //parse row
-        int col = 0; //set initial column index to 0
-        int cell;
-        stringstream lineRow (rowString);
-        while (lineRow >> cell) {
-            boardArr[row][col] = cell;
-            col++;
-        }
-        for (int x=0; x < 5; x++) {
-            for (int y=0; y < 5; y++) { markedCells[x][y] = false; }
-        }
-    }
-    void searchBoard (int q) {
-        //search board for number q
-        for (int x=0; x < 5; x++) {
-            for (int y=0; y < 5; y++) { if (boardArr[x][y] == q) { markedCells[x][y] = true; } }
-        }
-    }
-    bool won () {
-        //check for victory
-        bool win = false;
-
-        for (int i = 0; i < 5; i++) {
-            if (markedCells[i][0] && markedCells[i][1] && markedCells[i][2] && markedCells[i][3] && markedCells[i][4]) {
-                win = true;
-            }
-        }
-
-        for (int i = 0; i < 5; i++) {
-            if (markedCells[0][i] && markedCells[1][i] && markedCells[2][i] && markedCells[3][i] && markedCells[4][i]) {
-                win = true;
-            }
-        }
-
-        if (win) {return true;}
-        else {return false;}
-    }
-    void setScore (int justCalled) {
-        int sumNotMarked = 0;
-
-        for (int x=0; x < 5; x++) {
-            for (int y=0; y < 5; y++) {
-                if (markedCells[x][y] == false) {sumNotMarked += boardArr[x][y];}
-            }
-        }
-        score = justCalled * sumNotMarked;
-    }
-    int getScore () {return score;}
+        void setRow (int row, string rowString); //parse a single row, given a row number and line of board
+        void searchBoard (int q); //search board for called number q
+        bool won (); //function to check if board has won
+        void setScore (int justCalled);
+        int getScore () {return score;}
 };
+
+void board::setRow (int row, string rowString) { //parse row
+    int col = 0; //set initial column index to 0
+    int cell;
+    stringstream lineRow (rowString);
+    while (lineRow >> cell) {
+        boardArr[row][col] = cell;
+        col++;
+    }
+    for (int x=0; x < 5; x++) {
+        for (int y=0; y < 5; y++) { markedCells[x][y] = false; }
+    }
+}
+
+void board::searchBoard (int q) {
+    //search board for number q
+    for (int x=0; x < 5; x++) {
+        for (int y=0; y < 5; y++) { if (boardArr[x][y] == q) { markedCells[x][y] = true; } }
+    }
+}
+
+bool board::won () {
+    //check for victory
+    bool win = false;
+
+    for (int i = 0; i < 5; i++) {
+        if (markedCells[i][0] && markedCells[i][1] && markedCells[i][2] && markedCells[i][3] && markedCells[i][4]) {
+            win = true;
+        }
+    }
+
+    for (int i = 0; i < 5; i++) {
+        if (markedCells[0][i] && markedCells[1][i] && markedCells[2][i] && markedCells[3][i] && markedCells[4][i]) {
+            win = true;
+        }
+    }
+
+    if (win) {return true;}
+    else {return false;}
+}
+
+void board::setScore (int justCalled) {
+    int sumNotMarked = 0;
+
+    for (int x=0; x < 5; x++) {
+        for (int y=0; y < 5; y++) {
+            if (markedCells[x][y] == false) {sumNotMarked += boardArr[x][y];}
+        }
+    }
+    score = justCalled * sumNotMarked;
+}
 
 int main() {
     ifstream inFile ("day4input.txt"); //declare ifstream variable and open input file
