@@ -33,25 +33,23 @@ struct board {
             for (int y=0; y < 5; y++) { markedCells[x][y] = false; }
         }
     }
-    void searchBoard (int q) {
-        //search board for number q
+    void searchBoard (int q) { //search board for number q
         for (int x=0; x < 5; x++) {
             for (int y=0; y < 5; y++) { if (boardArr[x][y] == q) { markedCells[x][y] = true; } }
         }
     }
-    bool won () {
-        //check for victory
+    bool won () { //check for victory
         bool win = false;
 
-        for (int i = 0; i < 5; i++) {
-            if (markedCells[i][0] && markedCells[i][1] && markedCells[i][2] && markedCells[i][3] && markedCells[i][4]) {
-                win = true;
+        for (int r = 0; r < 5 && !win; r++) { //check each row of board for a win
+            if (markedCells[r][0] && markedCells[r][1] && markedCells[r][2] && markedCells[r][3] && markedCells[r][4]) {
+                win = true; //if all cells in one row are marked, win is true
             }
         }
 
-        for (int i = 0; i < 5; i++) {
-            if (markedCells[0][i] && markedCells[1][i] && markedCells[2][i] && markedCells[3][i] && markedCells[4][i]) {
-                win = true;
+        for (int c = 0; c < 5 && !win; c++) { //check each column of board for a win
+            if (markedCells[0][c] && markedCells[1][c] && markedCells[2][c] && markedCells[3][c] && markedCells[4][c]) {
+                win = true; //if all cells in one column are marked, win is true
             }
         }
 
@@ -81,15 +79,14 @@ int main() {
 
     string emptyLine; //string to skip a line
     getline (inFile, emptyLine);
-    string line;
+    string line; //temp variable to store one row of a board in while loop
 
     vector<board>allBoards; //vector of boards
     
     while (!inFile.eof()) {
         board tempBoard; //declare tempBoard variable
         //store one board
-        //line is the temp variable to store strings
-        int row = 0;
+        int row = 0; //set row count to 0 each time a new row is processed
         while (getline(inFile, line) && !line.empty()) { //parse one row
             tempBoard.setRow (row, line); //set row values
             //end of row
