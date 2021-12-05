@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <cmath>
 using namespace std;
 
 int gridSize = 1000;
@@ -37,6 +38,11 @@ class vent {
         point getEndPoint () {return endPoint;}
 };
 
+bool isInt (double q) {
+   double absolute = abs(q);
+   return absolute == floor(absolute);
+}
+
 //gather all the points that a vent covers
 void vent::makeLine() {
     int x1 = this->x1();
@@ -58,6 +64,21 @@ void vent::makeLine() {
         for (int x = lessX; x <= greaterX; x++) {
             point temp (x, y1);
             pointsCovered.push_back(temp);
+        }
+    }
+    if (y1 != y2 && x1 != x2) {
+        int greaterX = max(x1, x2); int lessX = min(x1, x2);
+
+        //calculate slope, given end points and start points
+        double m = (y2-y1)/(x2-x1);
+        double b = -1 * ((m*x1)-y1);
+
+        for (int x = lessX; x<=greaterX; x++) {
+            double y = (m*x)+b;
+            if (isInt(y)) {
+                point temp (x, (int)y);
+                pointsCovered.push_back(temp);
+            }
         }
     }
 }
@@ -100,7 +121,7 @@ void parseLine (string line, vector<vent>&v) {
     }
 
     vent obj (x_1, y_1, x_2, y_2);
-    if (obj.x1() == obj.x2() || obj.y1() == obj.y2()) {v.push_back(obj);}
+    v.push_back(obj);
 }
 
 void makeGrid(vector<vent>v) {
@@ -114,7 +135,7 @@ void makeGrid(vector<vent>v) {
 }
 
 int main() {
-    ifstream inFile ("input.txt");
+    ifstream inFile ("day5input.txt");
     string lineFromFile;
     vector<vent>vents;
 
