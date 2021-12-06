@@ -28,9 +28,7 @@ void updateFish (vector<fish>&vec) {
                 vec.push_back(newFish); //add new fish
                 vec[i] = 6;
             }
-            else {
-                if (!vec[i].newFish()) {vec[i].setDays(vec[i].getDays()-1);}
-            }
+            else if (!vec[i].newFish()){ vec[i].setDays(vec[i].getDays()-1); }
             if (vec[i].newFish()) {vec[i].setNew(false);} //make new fish not new
         }
     }
