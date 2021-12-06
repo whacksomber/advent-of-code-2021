@@ -4,7 +4,7 @@
 #include <vector>
 using namespace std;
 
-int numDays = 256;
+int numDays = 80;
 
 class fish {
     int days;
