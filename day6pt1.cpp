@@ -21,7 +21,6 @@ class fish {
 
 void updateFish (vector<fish>&vec) {
     for (int d = 0; d < numDays; d++) {
-        printf("%d \n", d);
         //update number of fish after d days
         for (int i = 0; i < vec.size(); i++) {
             if (vec[i].getDays() == 0) {
