@@ -11,7 +11,7 @@ int main() {
     int64_t fishTypes[9] = {0};
 
     string temp;
-    
+
     while (getline(inFile, temp, ',')) {
         int64_t d;
         stringstream ss; ss << temp; ss >> d;
@@ -27,7 +27,6 @@ int main() {
             fishTypes[a-1] += fishTypes[a];
             fishTypes[a] = 0;
         }
-        //how about the ones that went from one to zero on this day
         fishTypes[6] = fishTypes[6] + (fishTypes[0]-new0);
         fishTypes[8] += fishTypes[8] + (fishTypes[0]-new0);
         fishTypes[0] = new0;
