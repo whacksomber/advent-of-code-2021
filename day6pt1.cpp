@@ -26,7 +26,7 @@ void updateFish (vector<fish>&vec) {
             if (vec[i].getDays() == 0) {
                 fish newFish; //temp variable
                 vec.push_back(newFish); //add new fish
-                vec[i] = 6; //reset # of days to 6
+                vec[i].setDays(6); //reset # of days to 6
             }
             else if (!vec[i].newFish()){ vec[i].setDays(vec[i].getDays()-1); }
             if (vec[i].newFish()) {vec[i].setNew(false);} //make new fish not new
@@ -37,16 +37,12 @@ void updateFish (vector<fish>&vec) {
 int main() {
     ifstream inFile ("day6input.txt"); //open input file
 
-    string str;
-    getline(inFile, str);
-
-    stringstream ss (str);
     string temp;
     vector<fish>fishes; //vector of fish
 
-    while (getline(ss, temp, ',')) {
+    while (getline(inFile, temp, ',')) {
         int d;
-        stringstream ss2; ss2 << temp; ss2 >> d;
+        stringstream ss; ss << temp; ss >> d;
         fish tempFish (d);
         fishes.push_back(tempFish);
     }

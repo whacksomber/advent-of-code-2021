@@ -5,6 +5,13 @@
         "vector": "cpp",
         "iosfwd": "cpp",
         "istream": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "chrono": "cpp",
+        "__split_buffer": "cpp",
+        "deque": "cpp",
+        "__bit_reference": "cpp",
+        "algorithm": "cpp",
+        "bitset": "cpp",
+        "unordered_map": "cpp"
     }
 }
