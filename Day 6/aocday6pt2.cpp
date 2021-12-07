@@ -5,6 +5,8 @@ using namespace std;
 
 int numDays = 256; //set to 80 for part 1, 256 for part 2
 
+//this works for both part 1 and 2; this one is just simpler and not as slow
+
 int main() {
     ifstream inFile ("day6input.txt"); //open input file
 
