@@ -3,7 +3,7 @@
 #include <sstream>
 using namespace std;
 
-int numDays = 256;
+int numDays = 256; //set to 80 for part 1, 256 for part 2
 
 int main() {
     ifstream inFile ("day6input.txt"); //open input file
